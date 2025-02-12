@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            font-weight: bold;
+            background: url('Ale y yo.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid white;
+            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: white }
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            font-family: 'Helvetica', sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: pink;
+            font-size: 2rem;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); }
+            100% { top: 110%; transform: translateX(200px) rotate(360deg); }
+        }
+
+        .sad-dog {
+            width: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>¿Quieres ser mi San Valentín, Ale?</h1>
+    <div class="buttons">
+        <button onclick="accept()">Sí</button>
+        <button onclick="reject()">No</button>
+    </div>
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        function accept() {
+            // Cambiar el fondo a rosa con transición
+            document.body.style.backgroundColor = 'pink';
+            document.body.style.transition = 'background-color 1s ease';
+
+            // Cambiar el texto
+            document.querySelector('h1').innerText = '3er San Valentín juntos, te amo';
+            document.querySelector('h1').style.color = 'white';
+
+            // Ocultar los botones
+            document.querySelector('.buttons').style.display = 'none';
+
+            // Crear corazones en cascada
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerText = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heartsContainer.appendChild(heart);
+            }
+
+            // Reiniciar la página después de 5 segundos
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
+        }
+
+        function reject() {
+            // Cambiar el texto y mostrar una imagen de un perrito triste
+            document.querySelector('h1').innerText = 'Piensalo un poquito más Ale :(';
+            document.querySelector('.buttons').innerHTML = `
+                <img src="https://media.tenor.com/vGB-GwSkqRgAAAAe/perro-triste.png" alt="Perrito triste" class="sad-dog">
+            `;
+
+            // Volver a las opciones principales después de 3 segundos
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
